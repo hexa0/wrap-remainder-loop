@@ -1,6 +1,8 @@
 const commandLineArguments = process.argv.slice(2);
 export const inputFile = commandLineArguments[0]
 export const commandLineFlags = new Map<string, string>()
+export const programExecutedWithDoubleClick = process.env["WT_SESSION"] === undefined
+// ^ possibly not supported on windows 10
 
 for (let index = 0; index < commandLineArguments.length - 1; index++) {
 	if (commandLineArguments[index + 1].startsWith("--")) {
