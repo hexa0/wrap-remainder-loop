@@ -1,0 +1,29 @@
+{
+  "name": "ipl-server-fastify",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "dev": "npx ts-node-dev src"
+  },
+  "author": "hexa0",
+  "license": "",
+  "description": "",
+  "dependencies": {
+    "@nodelib/fs.walk": "^3.0.1",
+    "@types/node": "^22.10.1",
+    "cache-manager": "^6.2.0",
+    "cli-progress": "^3.12.0",
+    "fastify": "^5.1.0",
+    "jsonc-parser": "^3.3.1",
+    "mime-types": "^2.1.35",
+    "node-watch": "^0.7.4",
+    "require-all": "^3.0.0",
+    "wasmagic": "^1.0.2"
+  },
+  "devDependencies": {
+    "@types/cli-progress": "^3.11.6",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.7.2"
+  }
+}
