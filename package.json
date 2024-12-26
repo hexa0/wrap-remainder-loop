@@ -1,5 +1,5 @@
 {
-  "name": "ipl-server-fastify",
+  "name": "wrap-remainder-loop",
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
@@ -7,19 +7,11 @@
     "dev": "npx ts-node-dev src"
   },
   "author": "hexa0",
-  "license": "",
+  "license": "GPL-3.0",
   "description": "",
   "dependencies": {
-    "@nodelib/fs.walk": "^3.0.1",
     "@types/node": "^22.10.1",
-    "cache-manager": "^6.2.0",
-    "cli-progress": "^3.12.0",
-    "fastify": "^5.1.0",
-    "jsonc-parser": "^3.3.1",
-    "mime-types": "^2.1.35",
-    "node-watch": "^0.7.4",
-    "require-all": "^3.0.0",
-    "wasmagic": "^1.0.2"
+    "cli-progress": "^3.12.0"
   },
   "devDependencies": {
     "@types/cli-progress": "^3.11.6",
