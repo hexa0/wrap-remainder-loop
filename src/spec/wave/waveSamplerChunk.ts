@@ -1,4 +1,4 @@
-import { RiffChunk } from "../riffHeader";
+import { RiffChunk } from "../riff";
 
 export interface SampleLoop {
 	identifier: number;
@@ -22,15 +22,8 @@ export interface WaveSamplerChunk extends RiffChunk {
 	loops: SampleLoop[];
 }
 
-export function ReadWaveSamplerChunk(
-	buffer: Buffer,
-	chunk: RiffChunk
-): WaveSamplerChunk {
-	const view = new DataView(
-		buffer.buffer,
-		chunk.riffRegionStart,
-		chunk.riffRegionEnd - chunk.riffRegionStart
-	);
+export function ReadWaveSamplerChunk(chunk: RiffChunk): WaveSamplerChunk {
+	const view = new DataView(chunk.buffer.buffer);
 
 	const samplerChunk: WaveSamplerChunk = Object.assign(
 		{
@@ -60,7 +53,7 @@ export function ReadWaveSamplerChunk(
 			playCount: view.getUint32(offset + 20, true),
 		};
 
-		samplerChunk.loops.push(sampleLoop)
+		samplerChunk.loops.push(sampleLoop);
 	}
 
 	return samplerChunk;

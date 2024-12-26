@@ -1,4 +1,4 @@
-import { RiffChunk } from "../riffHeader";
+import { RiffChunk } from "../riff";
 
 export interface CuePoint {
 	identifier: number;
@@ -14,15 +14,8 @@ export interface WaveCueChunk extends RiffChunk {
 	points: CuePoint[];
 }
 
-export function ReadWaveCueChunk(
-	buffer: Buffer,
-	chunk: RiffChunk
-): WaveCueChunk {
-	const view = new DataView(
-		buffer.buffer,
-		chunk.riffRegionStart,
-		chunk.riffRegionEnd - chunk.riffRegionStart
-	);
+export function ReadWaveCueChunk(chunk: RiffChunk): WaveCueChunk {
+	const view = new DataView(chunk.buffer.buffer);
 
 	const cueChunk: WaveCueChunk = Object.assign(
 		{
@@ -40,10 +33,7 @@ export function ReadWaveCueChunk(
 			position: view.getUint32(offset + 4, true),
 			fccChunk: String.fromCharCode(
 				...new Uint8Array(
-					buffer.subarray(
-						chunk.riffRegionStart + offset + 8,
-						chunk.riffRegionStart + offset + 12
-					)
+					chunk.buffer.subarray(offset + 8, offset + 12)
 				)
 			),
 			chunkStart: view.getUint32(offset + 12, true),

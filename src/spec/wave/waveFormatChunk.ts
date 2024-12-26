@@ -1,8 +1,8 @@
-import { RiffChunk } from "../riffHeader";
+import { RiffChunk } from "../riff";
 
 export const enum WaveFormatChunkAudioFormat {
 	pcm = 1,
-	float = 3
+	float = 3,
 }
 
 export interface WaveFormatChunk extends RiffChunk {
@@ -14,15 +14,8 @@ export interface WaveFormatChunk extends RiffChunk {
 	bitsPerSample: number;
 }
 
-export function ReadWaveFormatChunk(
-	buffer: Buffer,
-	chunk: RiffChunk
-): WaveFormatChunk {
-	const view = new DataView(
-		buffer.buffer,
-		chunk.riffRegionStart,
-		chunk.riffRegionEnd - chunk.riffRegionStart
-	);
+export function ReadWaveFormatChunk(chunk: RiffChunk): WaveFormatChunk {
+	const view = new DataView(chunk.buffer.buffer);
 
 	return Object.assign(
 		{
