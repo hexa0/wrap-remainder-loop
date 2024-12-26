@@ -1,21 +1,21 @@
 {
-  "name": "wrap-remainder-loop",
-  "version": "1.0.0",
-  "main": "dist/index.js",
-  "scripts": {
-    "build": "npx tsc",
-    "dev": "npx ts-node-dev src"
-  },
-  "author": "hexa0",
-  "license": "GPL-3.0",
-  "description": "",
-  "dependencies": {
-    "@types/node": "^22.10.1",
-    "cli-progress": "^3.12.0"
-  },
-  "devDependencies": {
-    "@types/cli-progress": "^3.11.6",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.7.2"
-  }
+	"name": "wrap-remainder-loop",
+	"version": "1.0.0",
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "bun run build:windows && bun run build:linux && bun run build:linux-arm && bun run build:mac-arm",
+		"build:mac-arm": "bun build src/index.ts --compile --target=bun-darwin-arm64 --minify --sourcemap --outfile dist/wrapRemainder-macos-arm",
+		"build:linux-arm": "bun build src/index.ts --compile --target=bun-linux-arm64 --minify --sourcemap --outfile dist/wrapRemainder-linux-arm.elf",
+		"build:linux": "bun build src/index.ts --compile --target=bun-linux-x64-modern  --minify --sourcemap --outfile dist/wrapRemainder-linux-x64.elf",
+		"build:windows": "bun build src/index.ts --compile --target=bun-windows-x64-modern --minify --sourcemap --windows-icon=src/appIcon.ico --outfile dist/wrapRemainder-windows-x64.exe",
+		"build:windows-arm": "bun build src/index.ts --compile --target=bun-windows-arm64 --minify --sourcemap --windows-icon=src/appIcon.ico --outfile dist/wrapRemainder-windows-arm.exe",
+		"dev": "bun --watch run src/index.ts samples/f32.wav"
+	},
+	"author": "hexa0",
+	"license": "GPL-3.0",
+	"description": "Manually corrects looping VGM wave files to wrap the remainder on the second loop, this is made to primarily work with FL Studio so it may not work work with other DAWs",
+	"dependencies": {},
+	"devDependencies": {
+		"@types/bun": "^1.1.14"
+	}
 }

@@ -1,4 +1,5 @@
-import { readFileSync } from "fs";
+console.log(`Init, Bun version: ${Bun.version}`)
+
 import { lastIndexOf } from "./util/string/lastIndexOf";
 import { RenderNewWave } from "./renderer";
 
@@ -11,5 +12,6 @@ const outputPath = commandLineArguments[1]
 			lastIndexOf(audioToProcess, ".") || audioToProcess.length
 	  ) + " (looped).wav";
 
-const fileBuffer = readFileSync(audioToProcess);
+const fileBuffer = Buffer.from(await Bun.file(audioToProcess).bytes());
+console.log("Processing")
 RenderNewWave(fileBuffer, outputPath);

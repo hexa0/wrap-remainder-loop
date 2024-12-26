@@ -1,4 +1,4 @@
-import assert from "assert";
+import { assert } from "../../util/logic/assert";
 
 export interface RiffChunk {
 	buffer: Buffer;
@@ -36,9 +36,15 @@ export function ReadRiffHeader(buffer: Buffer): RiffHeader {
 	let chunkSearchOffset = 12;
 
 	while (true) {
-		if (chunkSearchOffset >= riff.dataSize - 4) {
+		if (chunkSearchOffset >= riff.dataSize) {
 			break;
 		}
+
+		const label = String.fromCharCode(
+			...new Uint8Array(
+				buffer.subarray(chunkSearchOffset, chunkSearchOffset + 4)
+			)
+		).replaceAll(" ", "");
 
 		const chunk: RiffChunk = {
 			buffer: DUMMY_BUFFER,
@@ -51,16 +57,13 @@ export function ReadRiffHeader(buffer: Buffer): RiffHeader {
 		};
 
 		chunk.buffer = Buffer.alloc(chunk.riffChunkEnd - chunk.riffChunkStart);
-		buffer.copy(chunk.buffer, 0, chunk.riffChunkStart, chunk.riffChunkEnd);
+		chunk.buffer.set(buffer.subarray(chunk.riffChunkStart, chunk.riffChunkEnd));
 
-		riff.chunks.set(
-			String.fromCharCode(
-				...new Uint8Array(
-					buffer.subarray(chunkSearchOffset, chunkSearchOffset + 4)
-				)
-			).replaceAll(" ", ""),
-			chunk
-		);
+		if (!riff.chunks.get(label)) {
+			riff.chunks.set(label, chunk);
+		} else {
+			riff.chunks.set(label + chunkSearchOffset, chunk);
+		}
 
 		chunkSearchOffset = chunk.riffChunkEnd;
 	}
@@ -75,7 +78,7 @@ export function RiffInterfaceToBuffer(riff: RiffHeader) {
 		dataSize += chunk.buffer.length + 8;
 	});
 
-	const buffer = Buffer.alloc(dataSize + 8);
+	const buffer = Buffer.alloc(dataSize + 12);
 
 	const view = new DataView(buffer.buffer);
 	view.setUint32(0, 1179011410, true);
@@ -89,7 +92,7 @@ export function RiffInterfaceToBuffer(riff: RiffHeader) {
 		// console.log(chunk.buffer.length)
 		view.setUint32(chunkOffset, chunk.riffLabel, true);
 		view.setUint32(chunkOffset + 4, chunk.buffer.length, true);
-		chunk.buffer.copy(buffer, chunkOffset + 8, 0);
+		buffer.set(chunk.buffer, chunkOffset + 8);
 		chunkOffset += chunk.buffer.length + 8;
 	});
 

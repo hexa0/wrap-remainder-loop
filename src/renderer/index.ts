@@ -1,4 +1,3 @@
-import assert from "assert";
 import {
 	GetSampleCount,
 	ReadSample,
@@ -11,7 +10,7 @@ import {
 	WriteWaveSamplerChunk,
 } from "../spec/wave/waveSamplerChunk";
 import { RiffInterfaceToBuffer } from "../spec/riff";
-import { writeFileSync } from "fs";
+import { assert } from "../util/logic/assert";
 
 export function RenderNewWave(file: Buffer, outputPath: string) {
 	const waveFile = ReadWaveHeaders(file);
@@ -66,7 +65,7 @@ export function RenderNewWave(file: Buffer, outputPath: string) {
 
 	const newFileBuffer = RiffInterfaceToBuffer(waveFile.riff);
 
-	writeFileSync(outputPath, newFileBuffer);
+	Bun.write(outputPath, newFileBuffer.buffer)
 
 	console.log(`File written to "${outputPath}"`)
 	console.log(`Sample rate is ${waveFile.fmt.sampleRate}`)

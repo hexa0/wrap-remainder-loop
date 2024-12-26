@@ -1,12 +1,11 @@
-import assert from "assert";
 import { ReadRiffHeader, RiffChunk, RiffHeader } from "../riff";
 import {
 	ReadWaveFormatChunk,
 	WaveFormatChunk,
 	WaveFormatChunkAudioFormat,
 } from "./waveFormatChunk";
-import { channel } from "diagnostics_channel";
 import { Clamp } from "../../util/math/clamp";
+import { assert } from "../../util/logic/assert";
 
 export interface WaveFile {
 	buffer: Buffer;

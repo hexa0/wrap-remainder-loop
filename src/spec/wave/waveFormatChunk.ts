@@ -3,6 +3,7 @@ import { RiffChunk } from "../riff";
 export const enum WaveFormatChunkAudioFormat {
 	pcm = 1,
 	float = 3,
+	ogg = 26447,
 }
 
 export interface WaveFormatChunk extends RiffChunk {
