@@ -13,6 +13,3 @@ const outputPath = commandLineArguments[1]
 
 const fileBuffer = readFileSync(audioToProcess);
 RenderNewWave(fileBuffer, outputPath);
-
-// keep process open for npm run dev
-process.stdin.resume();
