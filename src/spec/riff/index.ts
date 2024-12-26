@@ -82,7 +82,7 @@ export function RiffInterfaceToBuffer(riff: RiffHeader) {
 
 	const view = new DataView(buffer.buffer);
 	view.setUint32(0, 1179011410, true);
-	view.setUint32(4, dataSize, true);
+	view.setUint32(4, dataSize + 4, true);
 	view.setUint32(8, riff.type, true);
 
 	let chunkOffset = 12;
