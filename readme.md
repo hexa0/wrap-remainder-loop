@@ -26,3 +26,7 @@ Godot doesn't support this correctly as it doesn't allow you to input precise lo
 replace sampleRate, loopStart, and loopEnd with the output of the script
 ## Unity
 Unity doesn't support audio loop points. you'll need to implement it yourself or use FMOD/an another alternative sound engine that does support it.
+# Command-line arguments/flags:
+- inputFile
+- --output-file &lt;path&gt; (specifies the output path, if not specified then the path will be the original file with "(looped)" appended to the end)
+- --write-info &lt;yes/no&gt; (writes an additional json sidecar file to be accessed instead of the cli output)

@@ -11,8 +11,9 @@ import {
 } from "../spec/wave/waveSamplerChunk";
 import { RiffInterfaceToBuffer } from "../spec/riff";
 import { assert } from "../util/logic/assert";
+import { commandLineFlags } from "../util/process/commandLineArguments";
 
-export function RenderNewWave(file: Buffer, outputPath: string) {
+export async function RenderNewWave(file: Buffer, outputPath: string) {
 	const waveFile = ReadWaveHeaders(file);
 
 	const smpl = waveFile.riff.chunks.get("smpl");
@@ -65,10 +66,23 @@ export function RenderNewWave(file: Buffer, outputPath: string) {
 
 	const newFileBuffer = RiffInterfaceToBuffer(waveFile.riff);
 
-	Bun.write(outputPath, newFileBuffer.buffer)
+	console.log(`Writing`)
+
+	await Bun.write(outputPath, newFileBuffer.buffer)
 
 	console.log(`File written to "${outputPath}"`)
 	console.log(`Sample rate is ${waveFile.fmt.sampleRate}`)
 	console.log(`Loop start is ${samplerData.loops[0].start}`)
 	console.log(`Loop end is ${samplerData.loops[0].end}`)
+
+	if (commandLineFlags.get("write-info") === "yes") {
+		console.log(`Writing info`)
+		await Bun.write(outputPath.substring(0, outputPath.lastIndexOf(".")) + ".json", JSON.stringify({
+			sampleRate: waveFile.fmt.sampleRate,
+			loopStart: samplerData.loops[0].start,
+			loopEnd: samplerData.loops[0].end,
+		}))
+	}
+
+	console.log(`Done`)
 }

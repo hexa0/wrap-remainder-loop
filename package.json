@@ -4,11 +4,11 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"build": "bun run build:windows && bun run build:linux && bun run build:linux-arm && bun run build:mac-arm",
-		"build:mac-arm": "bun build src/index.ts --compile --target=bun-darwin-arm64 --minify --sourcemap --outfile dist/wrapRemainder-macos-arm",
-		"build:linux-arm": "bun build src/index.ts --compile --target=bun-linux-arm64 --minify --sourcemap --outfile dist/wrapRemainder-linux-arm.elf",
-		"build:linux": "bun build src/index.ts --compile --target=bun-linux-x64-modern  --minify --sourcemap --outfile dist/wrapRemainder-linux-x64.elf",
-		"build:windows": "bun build src/index.ts --compile --target=bun-windows-x64-modern --minify --sourcemap --windows-icon=src/appIcon.ico --outfile dist/wrapRemainder-windows-x64.exe",
-		"build:windows-arm": "bun build src/index.ts --compile --target=bun-windows-arm64 --minify --sourcemap --windows-icon=src/appIcon.ico --outfile dist/wrapRemainder-windows-arm.exe",
+		"build:mac-arm": "bun build src/index.ts --compile --target=bun-darwin-arm64 --minify --sourcemap --outfile dist/macos/arm64/rwrap",
+		"build:linux-arm": "bun build src/index.ts --compile --target=bun-linux-arm64 --minify --sourcemap --outfile dist/linux/arm64/rwrap",
+		"build:linux": "bun build src/index.ts --compile --target=bun-linux-x64-modern  --minify --sourcemap --outfile dist/linux/amd64/rwrap",
+		"build:windows": "bun build src/index.ts --compile --target=bun-windows-x64-modern --minify --sourcemap --windows-icon=src/appIcon.ico --outfile dist/windows/amd64/rwrap.exe",
+		"build:windows-arm": "bun build src/index.ts --compile --target=bun-windows-arm64 --minify --sourcemap --windows-icon=src/appIcon.ico --outfile dist/windows/arm64/rwrap.exe",
 		"dev": "bun --watch run src/index.ts samples/f32.wav"
 	},
 	"author": "hexa0",
