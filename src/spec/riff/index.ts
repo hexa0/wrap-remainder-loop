@@ -36,7 +36,7 @@ export function ReadRiffHeader(buffer: Buffer): RiffHeader {
 	let chunkSearchOffset = 12;
 
 	while (true) {
-		if (chunkSearchOffset >= riff.dataSize) {
+		if (chunkSearchOffset >= riff.dataSize - 4) {
 			break;
 		}
 
