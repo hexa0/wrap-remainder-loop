@@ -69,6 +69,7 @@ export function RenderNewWave(file: Buffer, outputPath: string) {
 	writeFileSync(outputPath, newFileBuffer);
 
 	console.log(`File written to "${outputPath}"`)
-	console.log(`Loop start is ${samplerData.loops[0].start}@${waveFile.fmt.sampleRate}`)
-	console.log(`Loop end is ${samplerData.loops[0].end}@${waveFile.fmt.sampleRate}`)
+	console.log(`Sample rate is ${waveFile.fmt.sampleRate}`)
+	console.log(`Loop start is ${samplerData.loops[0].start}`)
+	console.log(`Loop end is ${samplerData.loops[0].end}`)
 }
