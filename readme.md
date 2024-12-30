@@ -23,7 +23,6 @@ selectedAudio.PlaybackRegion = NumberRange.new(0, selectedAudio.TimeLength - (1 
 replace sampleRate, loopStart and loopEnd with the output of the script.
 ## Godot
 Godot doesn't support this correctly as it doesn't allow you to input precise loop points, you can get it close by setting Offset (in the import settings) to loopStart divided by the sampleRate but you will get an audible pop, see: https://github.com/godotengine/godot-proposals/issues/84 and https://github.com/godotengine/godot/pull/87554
-replace sampleRate, loopStart, and loopEnd with the output of the script
 ## Unity
 Unity doesn't support audio loop points. you'll need to implement it yourself or use FMOD/an another alternative sound engine that does support it.
 # Command-line arguments/flags:
